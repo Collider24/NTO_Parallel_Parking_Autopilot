@@ -644,7 +644,7 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 55
-  sphereMaterial: {fileID: 0}
+  sphereMaterial: {fileID: 2100000, guid: e8e9f6e57493aa6409f7fa5a55f2f952, type: 2}
 --- !u!1 &2785103650480477323
 GameObject:
   m_ObjectHideFlags: 0
@@ -808,7 +808,7 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 55
-  sphereMaterial: {fileID: 0}
+  sphereMaterial: {fileID: 2100000, guid: e8e9f6e57493aa6409f7fa5a55f2f952, type: 2}
 --- !u!1 &3440610241024189944
 GameObject:
   m_ObjectHideFlags: 0
@@ -1011,7 +1011,7 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 55
-  sphereMaterial: {fileID: 0}
+  sphereMaterial: {fileID: 2100000, guid: e8e9f6e57493aa6409f7fa5a55f2f952, type: 2}
 --- !u!1 &3933354212119359598
 GameObject:
   m_ObjectHideFlags: 0
@@ -1143,7 +1143,7 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 55
-  sphereMaterial: {fileID: 0}
+  sphereMaterial: {fileID: 2100000, guid: e8e9f6e57493aa6409f7fa5a55f2f952, type: 2}
 --- !u!1 &4163267998712935298
 GameObject:
   m_ObjectHideFlags: 0
@@ -1275,7 +1275,7 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 55
-  sphereMaterial: {fileID: 0}
+  sphereMaterial: {fileID: 2100000, guid: e8e9f6e57493aa6409f7fa5a55f2f952, type: 2}
 --- !u!1 &4971688357497124492
 GameObject:
   m_ObjectHideFlags: 0
@@ -1493,7 +1493,7 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 55
-  sphereMaterial: {fileID: 0}
+  sphereMaterial: {fileID: 2100000, guid: e8e9f6e57493aa6409f7fa5a55f2f952, type: 2}
 --- !u!1 &5409469667355719566
 GameObject:
   m_ObjectHideFlags: 0
@@ -1613,7 +1613,7 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 55
-  sphereMaterial: {fileID: 0}
+  sphereMaterial: {fileID: 2100000, guid: e8e9f6e57493aa6409f7fa5a55f2f952, type: 2}
 --- !u!1 &5612889247083069240
 GameObject:
   m_ObjectHideFlags: 0
@@ -2110,7 +2110,7 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 55
-  sphereMaterial: {fileID: 0}
+  sphereMaterial: {fileID: 2100000, guid: e8e9f6e57493aa6409f7fa5a55f2f952, type: 2}
 --- !u!1 &7159844988089389152
 GameObject:
   m_ObjectHideFlags: 0
@@ -2293,8 +2293,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3504555103590898517}
   - component: {fileID: 4183287239815892944}
-  - component: {fileID: 527911844030967114}
   - component: {fileID: 4028874328998384081}
+  - component: {fileID: 9009029702385428969}
   m_Layer: 0
   m_Name: Toyota Chaser
   m_TagString: Untagged
@@ -2379,50 +2379,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &527911844030967114
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7590212040365010216}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 124e8cb32b2ff4deda7485769dc26322, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  horizontalInput: 0
-  handbrake: 0
-  Manual: 0
-  motorForce: 300
-  breakForce: 4000
-  maxSteerAngle: 40
-  frontLeftWheelCollider: {fileID: 867720058689776925}
-  frontRightWheelCollider: {fileID: 163833002622277162}
-  rearLeftWheelCollider: {fileID: 4695625143782070548}
-  rearRightWheelCollider: {fileID: 3137712838153709387}
-  frontLeftWheelTransform: {fileID: 8865426089292045749}
-  frontRightWheelTransform: {fileID: 1894911894050135663}
-  rearLeftWheelTransform: {fileID: 4640769061213001943}
-  rearRightWheelTransform: {fileID: 2808346093909643171}
-  throttle: 0
-  currentSettedSpeed: 0
-  currentAngle: 0
-  queue: []
-  angleStep: 0.05
-  parkingSensors:
-  - {fileID: 3748591568023732057}
-  - {fileID: 7683204845233616511}
-  - {fileID: 7586358338155392049}
-  - {fileID: 4001647591544843144}
-  - {fileID: 4825171510492740903}
-  - {fileID: 8471827743748346083}
-  - {fileID: 8174941595432749341}
-  - {fileID: 427189882798676729}
-  lineSensors:
-  - {fileID: 3967671967042927167}
-  - {fileID: 913151680582251811}
-  speed: 0
 --- !u!65 &4028874328998384081
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2444,6 +2400,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.811328, y: 1.1914178, z: 4.8193426}
   m_Center: {x: -4.4605284e-18, y: 0.7659752, z: -0.015938878}
+--- !u!114 &9009029702385428969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7590212040365010216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6bc7650ed537fc44a47e214934313e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7695730593215611092
 GameObject:
   m_ObjectHideFlags: 0
@@ -2492,7 +2460,7 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 64
-  sphereMaterial: {fileID: 0}
+  sphereMaterial: {fileID: 2100000, guid: e8e9f6e57493aa6409f7fa5a55f2f952, type: 2}
 --- !u!1 &7959714946424240382
 GameObject:
   m_ObjectHideFlags: 0
@@ -3101,7 +3069,7 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 64
-  sphereMaterial: {fileID: 0}
+  sphereMaterial: {fileID: 2100000, guid: e8e9f6e57493aa6409f7fa5a55f2f952, type: 2}
 --- !u!1 &9178883373504017612
 GameObject:
   m_ObjectHideFlags: 0

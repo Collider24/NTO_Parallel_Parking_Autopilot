@@ -15,5 +15,6 @@ public class Solution : MonoBehaviour
         carController.SetSpeed(10);
         yield return new WaitForSeconds(10);
         carController.SetSpeed(0);
+        carController.EndOfParking();
     }
 }

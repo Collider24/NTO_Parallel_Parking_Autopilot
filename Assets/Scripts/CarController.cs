@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class CarController : MonoBehaviour
 {
+    [SerializeField]
+    private Rigidbody rb;
     private float horizontalInput;
     private float currentSteerAngle;
-
-    public bool Manual = true;
 
     [SerializeField] private float motorForce, breakForce, maxSteerAngle;
 
@@ -24,8 +24,6 @@ public class CarController : MonoBehaviour
     private float currentSettedSpeed = 0;
     private float currentAngle = 0;
 
-    private Rigidbody rb;
-
     private List<float>queue = new List<float>();
 
     private float angleStep = 0.05f;
@@ -37,14 +35,11 @@ public class CarController : MonoBehaviour
     private List<ParkingSensorController>lineSensors = new List<ParkingSensorController>();
 
     private float time = 0;
-    private void Awake()
-    {
-        rb = GetComponent<Rigidbody>();
-    }
+    private float speed;
 
     private void Start()
     {
-        time = Time.time;
+        time = 0;
     }
 
     private void FixedUpdate()
@@ -53,7 +48,11 @@ public class CarController : MonoBehaviour
         HandleMotor();
         HandleSteering();
         UpdateWheels();
-        CheckLine();
+        time += Time.deltaTime;
+        if (Time.timeScale != 1)
+        {
+            Time.timeScale = 1;
+        }
     }
 
     private void GetInput()
@@ -74,7 +73,7 @@ public class CarController : MonoBehaviour
             }
             else
             {
-                if (Vector3.Dot(transform.forward, rb.velocity) * 3.6f < currentSettedSpeed)
+                if (Vector3.Dot(rb.transform.forward, rb.velocity) * 3.6f < currentSettedSpeed)
                 {
                     throttle = 1;
                 }
@@ -84,7 +83,7 @@ public class CarController : MonoBehaviour
                 }
             }
         }
-        else if (Vector3.Dot(transform.forward, rb.velocity) * 3.6f < currentSettedSpeed)
+        else if (Vector3.Dot(rb.transform.forward, rb.velocity) * 3.6f < currentSettedSpeed)
         {
             throttle = 1;
         }
@@ -92,6 +91,7 @@ public class CarController : MonoBehaviour
         {
             throttle = -1;
         }
+        speed = rb.velocity.magnitude * 3.6f;
     }
 
     private void HandleMotor()
@@ -225,20 +225,79 @@ public class CarController : MonoBehaviour
         }
     }
 
-    private void CheckLine()
-    {
-        if (GetDistanceToLine(0) > 9 || GetDistanceToLine(1) > 9)
-        {
-            print("Crossing central line!");
-        }
-    }
-
     public void EndOfParking()
     {
-        print($"Time: {Time.time - time}");
-        print($"Car angle: {transform.eulerAngles.y}");
+        StartCoroutine(EndOfParkingAsync());
+    }
+
+    private IEnumerator EndOfParkingAsync()
+    {
+        if (currentSettedSpeed != 0)
+        {
+            print("Car in move!");
+            print("Score: 0");
+        }
+        else if (speed > 0.01f)
+        {
+            while (speed > 0.01f)
+            {
+                yield return null;
+            }
+        }
+        print($"Time: {time}");
+        if (time > 50f)
+        {
+            print("Time Limit!");
+        }
+        print($"Car angle: {rb.transform.eulerAngles.y}");
+        float angleScore = 0;
+        if (45 <= rb.transform.eulerAngles.y && rb.transform.eulerAngles.y < 89)
+        {
+            angleScore = (rb.transform.eulerAngles.y - 45) / (89 - 45);
+        }
+        else if (89 <= rb.transform.eulerAngles.y && rb.transform.eulerAngles.y <= 91)
+        {
+            angleScore = 1;
+        }
+        else if (91 <= rb.transform.eulerAngles.y && rb.transform.eulerAngles.y < 135)
+        {
+            angleScore = (rb.transform.eulerAngles.y - 135) / (91 - 135);
+        }
         float minDistToLine = GetDistanceToLine(0) < GetDistanceToLine(1) ? GetDistanceToLine(0) : GetDistanceToLine(1);
         print($"Distance to line: {minDistToLine}");
+        float lineScore = 0;
+        if (0.7f < minDistToLine && minDistToLine < 3)
+        {
+            lineScore = (minDistToLine - 0.7f) / (3 - 0.7f);
+        }
+        else if (minDistToLine >= 3)
+        {
+            lineScore = 1;
+        }
+
         print($"Distance to back obstacle: {GetParkingSensorDistance(4)}");
+
+        float distanceScore = 0;
+
+        if (GetParkingSensorDistance(4) < 0.2f)
+        {
+            distanceScore = GetParkingSensorDistance(4) / 0.2f;
+        }
+        else if (0.2f <= GetParkingSensorDistance(4) && GetParkingSensorDistance(4) <= 0.4f)
+        {
+            distanceScore = 1;
+        }
+        else if (0.4f < GetParkingSensorDistance(4) && GetParkingSensorDistance(4) < 0.6f)
+        {
+            distanceScore = (GetParkingSensorDistance(4) - 0.6f) / (0.4f - 0.6f);
+        }
+        if (time <= 50f)
+        {
+            print($"Score: {(int)(100 * Mathf.Min(angleScore, distanceScore, lineScore))}");
+        }
+        else
+        {
+            print("Score: 0");
+        }
     }
 }
