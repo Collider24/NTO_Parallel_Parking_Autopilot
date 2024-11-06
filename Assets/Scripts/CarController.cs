@@ -19,7 +19,6 @@ public class CarController : MonoBehaviour
     [SerializeField] private Transform rearLeftWheelTransform, rearRightWheelTransform;
 
     private float throttle = 0;
-    private int direction = 1;
 
     private float currentSettedSpeed = 0;
     private float currentAngle = 0;
@@ -96,14 +95,14 @@ public class CarController : MonoBehaviour
 
     private void HandleMotor()
     {
-        rearLeftWheelCollider.motorTorque = direction * throttle * motorForce;
-        rearRightWheelCollider.motorTorque = direction * throttle * motorForce;
+        rearLeftWheelCollider.motorTorque = throttle * motorForce;
+        rearRightWheelCollider.motorTorque = throttle * motorForce;
     }
 
     private void HandleSteering()
     {
         currentSteerAngle = maxSteerAngle * horizontalInput;
-        if (horizontalInput > 0)
+        if (horizontalInput >= 0)
         {
             frontLeftWheelCollider.steerAngle = currentSteerAngle;
             frontRightWheelCollider.steerAngle = currentSteerAngle + horizontalInput*10;
@@ -112,11 +111,6 @@ public class CarController : MonoBehaviour
         {
             frontLeftWheelCollider.steerAngle = currentSteerAngle + horizontalInput * 10;
             frontRightWheelCollider.steerAngle = currentSteerAngle;
-        }
-        else
-        {
-            frontLeftWheelCollider.steerAngle = 0;
-            frontRightWheelCollider.steerAngle = 0;
         }
     }
 
@@ -195,8 +189,8 @@ public class CarController : MonoBehaviour
         currentCoroutine = null;
         if (queue.Count > 0)
         {
-            float value = queue[queue.Count - 1];
-            queue.RemoveAt(queue.Count - 1);
+            float value = queue[0];
+            queue.RemoveAt(0);
             SetStearingAngle(value);
         }
     }
@@ -263,7 +257,9 @@ public class CarController : MonoBehaviour
         {
             angleScore = (rb.transform.eulerAngles.y - 135) / (91 - 135);
         }
-        float minDistToLine = GetDistanceToLine(0) < GetDistanceToLine(1) ? GetDistanceToLine(0) : GetDistanceToLine(1);
+        float alpha = rb.transform.eulerAngles.y > 90 ? rb.transform.eulerAngles.y - 90 : 90 - rb.transform.eulerAngles.y;
+        float l = GetDistanceToLine(0) < GetDistanceToLine(1) ? GetDistanceToLine(0) : GetDistanceToLine(1); ;
+        float minDistToLine = l * Mathf.Cos(alpha * Mathf.Deg2Rad);
         print($"Distance to line: {minDistToLine}");
         float lineScore = 0;
         if (0.7f < minDistToLine && minDistToLine < 3)
