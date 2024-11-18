@@ -145,7 +145,7 @@ public class CarController : MonoBehaviour
     }
 
     private Coroutine currentCoroutine = null;
-    public void SetStearingAngle(float value)
+    public void SetSteeringAngle(float value)
     {
         if (value > 1)
         {
@@ -191,7 +191,7 @@ public class CarController : MonoBehaviour
         {
             float value = queue[0];
             queue.RemoveAt(0);
-            SetStearingAngle(value);
+            SetSteeringAngle(value);
         }
     }
 

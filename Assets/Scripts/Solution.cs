@@ -12,9 +12,20 @@ public class Solution : MonoBehaviour
     }
     private IEnumerator Start()
     {
-        carController.SetSpeed(10);
-        yield return new WaitForSeconds(10);
-        carController.SetSpeed(0);
-        carController.EndOfParking();
+        carController.SetSteeringAngle(-1);
+        carController.SetSteeringAngle(1);
+
+        carController.SetSteeringAngle(-1);
+        carController.SetSteeringAngle(1);
+
+        carController.SetSteeringAngle(-1);
+        carController.SetSteeringAngle(1);
+
+        carController.SetSteeringAngle(-1);
+        carController.SetSteeringAngle(1);
+
+        carController.SetSteeringAngle(-1);
+        carController.SetSteeringAngle(1);
+        yield return null;
     }
 }
