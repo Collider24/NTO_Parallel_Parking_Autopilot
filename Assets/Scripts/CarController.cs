@@ -289,7 +289,7 @@ public class CarController : MonoBehaviour
         }
         if (time <= 50f)
         {
-            print($"Score: {(int)(100 * Mathf.Min(angleScore, distanceScore, lineScore))}");
+            print($"Score: {(int)(100 * (angleScore + distanceScore + lineScore) / 3)}");
         }
         else
         {
